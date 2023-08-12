@@ -2,16 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import fs from 'fs';
+import { users as data } from './users.data';
+import * as fs from 'fs';
+import * as path from 'path'
 
 @Injectable()
 export class UserService {
 
-  private users: [User];
+  private users: User[];
 
   constructor(){
-    const usersData = JSON.parse(fs.readFileSync('users.json', 'utf-8'));
-    this.users = usersData;
+    this.users = data;
   }
 
   create(createUserDto: CreateUserDto) {
