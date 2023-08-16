@@ -5,6 +5,14 @@ import { UserSchemaMongo } from './schemas/user.schema';
 import { User } from 'src/modules/user/entities/user.entity';
 import { USER_REPOSITORY, UserRepository } from 'src/modules/user/user.repository';
 import { MongoUsersRepository } from './repositories/mongo-users-repository';
+import { HttpModule } from '@nestjs/axios';
+import { StarWarsApiService } from './star-wars-api/star-wars-api.service';
+import { DatabasePreloadService } from './database-preload.service';
+import { FILM_REPOSITORY } from 'src/modules/film/film.repository';
+import { MongoFilmRepository } from './repositories/mongo-films-repository';
+import { Film } from 'src/modules/film/entities/film.entity';
+import { FilmSchemaMongo } from './schemas/film.schema';
+import { FilmModule } from 'src/modules/film/film.module';
 
 @Global()
 @Module({    
@@ -18,16 +26,25 @@ import { MongoUsersRepository } from './repositories/mongo-users-repository';
         },
       }),
       MongooseModule.forFeature([
-        {name : User.name, schema: UserSchemaMongo}
-      ])
+        {name : User.name, schema: UserSchemaMongo},
+        {name: Film.name, schema: FilmSchemaMongo}
+      ]),
+      HttpModule,
+      FilmModule
     ],
     providers:[
         {
             provide: USER_REPOSITORY,
             useClass: MongoUsersRepository
-        }
+        },
+        {
+          provide: FILM_REPOSITORY,
+          useClass: MongoFilmRepository
+        },
+        StarWarsApiService,
+        DatabasePreloadService
     ],
-    exports: [USER_REPOSITORY]
+    exports: [USER_REPOSITORY, FILM_REPOSITORY, StarWarsApiService]
 })
 
 export class DatabaseModule {}
