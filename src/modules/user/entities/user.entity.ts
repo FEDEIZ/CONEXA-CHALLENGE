@@ -5,5 +5,8 @@ export class User implements IEntity{
     userName: string;
     email: string;
     password: string;
+    role: Roles;
     createdAt: Date;
 }
+
+export enum Roles {admin = 'ADMIN', user = 'USER' }
