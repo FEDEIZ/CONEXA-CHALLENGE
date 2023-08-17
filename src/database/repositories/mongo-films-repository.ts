@@ -20,11 +20,12 @@ export class MongoFilmRepository implements FilmRepository{
     update(id: string, item: Film): Promise<boolean> {
         throw new Error("Method not implemented.");
     }
-    delete(id: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async delete(id: string): Promise<boolean> {
+        return await this.filmModel.findOneAndDelete({_id: id});
     }
-    search(query?: SearchQuery<Film>): Promise<Film[]> {
-        throw new Error("Method not implemented.");
+    
+    async search(query?: SearchQuery<Film>): Promise<Film[]> {
+        return await this.filmModel.find(query).exec();
     }
 
     

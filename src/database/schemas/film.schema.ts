@@ -4,6 +4,9 @@ import { Film } from "src/modules/film/entities/film.entity";
 
 @Schema({collection: 'films'})
 class FilmSchema implements Film {
+    
+    _id: string;
+    
     @Prop({required: true})
     title: string;
     
@@ -37,6 +40,8 @@ class FilmSchema implements Film {
     @Prop({required: true})
     planets: string[];
     
+    @Prop({default: Date.now()})
+    createdAt: Date;
 }
 
 export const FilmSchemaMongo = SchemaFactory.createForClass(FilmSchema);

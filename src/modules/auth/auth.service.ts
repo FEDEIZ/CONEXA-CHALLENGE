@@ -37,7 +37,7 @@ export class AuthService {
     if (!processPassword.compare(signInDto.password,user.password)) {
       throw new UnauthorizedException();
     }
-    const payload = { sub: user.id, username: user.userName, role: user.role };
+    const payload = { sub: user._id, username: user.userName, role: user.role };
     return {
       token: await this.jwtService.signAsync(payload),
     };

@@ -7,13 +7,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FilmModule } from './modules/film/film.module';
+import { ConfigurationModule } from './config/config.module';
 
 @Module({
   imports: [
     AuthModule, 
     UserModule, 
-    ConfigModule.forRoot({isGlobal: true}), 
-    DatabaseModule, FilmModule
+    DatabaseModule, 
+    FilmModule,
+    ConfigurationModule
   ],
   controllers: [AppController],
   providers: [AppService],

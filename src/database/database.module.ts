@@ -7,12 +7,16 @@ import { USER_REPOSITORY, UserRepository } from 'src/modules/user/user.repositor
 import { MongoUsersRepository } from './repositories/mongo-users-repository';
 import { HttpModule } from '@nestjs/axios';
 import { StarWarsApiService } from './star-wars-api/star-wars-api.service';
-import { DatabasePreloadService } from './database-preload.service';
+import { DatabaseService } from './database-preload.service';
 import { FILM_REPOSITORY } from 'src/modules/film/film.repository';
 import { MongoFilmRepository } from './repositories/mongo-films-repository';
 import { Film } from 'src/modules/film/entities/film.entity';
 import { FilmSchemaMongo } from './schemas/film.schema';
 import { FilmModule } from 'src/modules/film/film.module';
+import { DatabaseController } from './database.controller';
+import { AuthGuard } from 'src/modules/auth/auth.guard';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { AuthModule } from 'src/modules/auth/auth.module';
 
 @Global()
 @Module({    
@@ -30,7 +34,8 @@ import { FilmModule } from 'src/modules/film/film.module';
         {name: Film.name, schema: FilmSchemaMongo}
       ]),
       HttpModule,
-      FilmModule
+      FilmModule,
+      AuthModule
     ],
     providers:[
         {
@@ -42,9 +47,12 @@ import { FilmModule } from 'src/modules/film/film.module';
           useClass: MongoFilmRepository
         },
         StarWarsApiService,
-        DatabasePreloadService
+        DatabaseService,
+        AuthGuard,
+        JwtService
     ],
-    exports: [USER_REPOSITORY, FILM_REPOSITORY, StarWarsApiService]
+    exports: [USER_REPOSITORY, FILM_REPOSITORY, StarWarsApiService],
+    controllers: [DatabaseController]
 })
 
 export class DatabaseModule {}

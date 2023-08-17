@@ -1,4 +1,7 @@
-export class Film {
+import { IEntity } from "src/utils/interfaces/IEntity";
+
+export class Film implements IEntity{
+    _id: string;
     title: string;
     episode_id: string;
     opening_crawl: string;
@@ -10,4 +13,5 @@ export class Film {
     vehicles: string[];
     characters: string[];
     planets: string[]
+    createdAt: Date;
 }

@@ -5,8 +5,7 @@ import { Document, Model } from "mongoose";
 @Schema({collection: 'users'})
 class UserSchema implements User {
     
-    //@Prop({_id:true, unique:true, index:true})
-    id: string;
+    _id: string;
     
     @Prop({required: true, unique:true, index:true})
     email:string
