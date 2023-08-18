@@ -21,21 +21,18 @@ export class DatabaseService implements OnModuleInit {
     const films = await this.starWarsApiService.getFilms();
     
     for(let i=0; i<films.length; i++){
-        const res = await this.filmService.create(films[i])
+        await this.filmService.create(films[i])
     }
-    // Aquí puedes almacenar los datos en tu base de datos, si corresponde
-    // Ejemplo: await this.userModel.create(films);
+
   }
 
   async resetFilmsDatabase() {
     console.log("Reseting db...");
-    const filmsDb = await this.filmService.findAll();
-    for(let i=0; i<filmsDb.length; i++){
-      const res = await this.filmService.remove(filmsDb[i]._id)
-    }
+    this.filmService.deleteAll();
     if(!(await this.filmService.findAll()).length){
-      this.preloadData();
+      await this.preloadData();
     }
+    return "Films database succsesfully reseted"
   }
 
 

@@ -10,18 +10,25 @@ export class MongoFilmRepository implements FilmRepository{
     
     constructor(@InjectModel(Film.name) private readonly filmModel: FilmModel){}
     
-    async create(item: Film): Promise<Film> {
+    async create(item: Partial<Film>): Promise<Film> {
         const film = await new this.filmModel(item).save();
         return film as Film;
     }
-    read(id: string): Promise<Film> {
-        throw new Error("Method not implemented.");
+    async read(id: string): Promise<Film> {
+        return await this.filmModel.findById(id);
     }
-    update(id: string, item: Film): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async update(id: string, item: Partial<Film>): Promise<boolean> {
+        const result = await this.filmModel.updateOne({_id: id},item);
+        return !!result.modifiedCount || !!result.upsertedCount;
     }
     async delete(id: string): Promise<boolean> {
-        return await this.filmModel.findOneAndDelete({_id: id});
+        const result =  await this.filmModel.deleteOne({_id: id});
+        return !!result.deletedCount;
+    }
+
+    async deleteAll(): Promise<boolean> {
+        const result = await this.filmModel.deleteMany();
+        return !!result.deletedCount;
     }
     
     async search(query?: SearchQuery<Film>): Promise<Film[]> {

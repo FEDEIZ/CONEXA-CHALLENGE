@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+@Global()
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
@@ -10,11 +11,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: async (configService: ConfigService) => ({
         global: true,
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '1h' },
       }),
       inject: [ConfigService],
     }),
   ],
-  exports: [JwtModule, ConfigModule], // Exportar JwtModule configurado
+  exports: [JwtModule, ConfigModule], 
 })
 export class ConfigurationModule {}

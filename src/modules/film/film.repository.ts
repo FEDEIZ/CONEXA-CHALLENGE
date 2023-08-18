@@ -3,4 +3,6 @@ import { Film } from './entities/film.entity';
 
 export const FILM_REPOSITORY = 'FilmRepository';
 
-export interface FilmRepository extends ICRUD<Film> {}
+export interface FilmRepository extends ICRUD<Film> {
+    deleteAll(): Promise<boolean>;
+}

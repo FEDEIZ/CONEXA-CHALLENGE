@@ -7,7 +7,7 @@ import { USER_REPOSITORY, UserRepository } from 'src/modules/user/user.repositor
 import { MongoUsersRepository } from './repositories/mongo-users-repository';
 import { HttpModule } from '@nestjs/axios';
 import { StarWarsApiService } from './star-wars-api/star-wars-api.service';
-import { DatabaseService } from './database-preload.service';
+import { DatabaseService } from './database.service';
 import { FILM_REPOSITORY } from 'src/modules/film/film.repository';
 import { MongoFilmRepository } from './repositories/mongo-films-repository';
 import { Film } from 'src/modules/film/entities/film.entity';
@@ -17,11 +17,11 @@ import { DatabaseController } from './database.controller';
 import { AuthGuard } from 'src/modules/auth/auth.guard';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { AuthModule } from 'src/modules/auth/auth.module';
+import { ConfigurationModule } from 'src/config/config.module';
 
 @Global()
 @Module({    
     imports: [
-      ConfigModule,
       MongooseModule.forRootAsync({
         imports: [ConfigModule],
         inject: [ConfigService],
@@ -35,7 +35,7 @@ import { AuthModule } from 'src/modules/auth/auth.module';
       ]),
       HttpModule,
       FilmModule,
-      AuthModule
+      ConfigurationModule
     ],
     providers:[
         {
@@ -49,9 +49,8 @@ import { AuthModule } from 'src/modules/auth/auth.module';
         StarWarsApiService,
         DatabaseService,
         AuthGuard,
-        JwtService
     ],
-    exports: [USER_REPOSITORY, FILM_REPOSITORY, StarWarsApiService],
+    exports: [USER_REPOSITORY, FILM_REPOSITORY],
     controllers: [DatabaseController]
 })
 

@@ -8,7 +8,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['debug', 'log'],
   });
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+  }));
   app.use(morgan('dev'));
   await app.listen(3000);
   console.log("Nest app listening on port 3000")

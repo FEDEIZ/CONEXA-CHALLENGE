@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { FILM_REPOSITORY, FilmRepository } from './film.repository';
@@ -12,23 +12,31 @@ export class FilmService {
   
   create(createFilmDto: CreateFilmDto) {
     return this.repository.create(createFilmDto)
-    return 'This action adds a new film';
+    .catch(e => {throw new HttpException("Could not create the film: " + e.message, HttpStatus.CONFLICT)})
   }
 
-  async findAll() {
-    return await this.repository.search();
-    
+  findAll() {
+    return this.repository.search()
+    .catch(e => {throw new HttpException("Could not find the films: " + e.message, HttpStatus.CONFLICT)})
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} film`;
+  findOne(id: string) {
+    return this.repository.read(id)
+    .catch(e => {throw new HttpException("Could not read the film: " + e.message, HttpStatus.CONFLICT)})
   }
 
-  update(id: number, updateFilmDto: UpdateFilmDto) {
-    return `This action updates a #${id} film`;
+  update(id: string, updateFilmDto: UpdateFilmDto) {
+    return this.repository.update(id, updateFilmDto)
+    .catch(e => {throw new HttpException("Could not update the film: " + e.message, HttpStatus.CONFLICT)})
   }
 
-  async remove(id: string) {
-    return await this.repository.delete(id);
+  remove(id: string) {
+    return this.repository.delete(id)
+    .catch(e => {throw new HttpException("Could not delete the film: " + e.message , HttpStatus.CONFLICT)})
+  }
+
+  deleteAll(){
+    return this.repository.deleteAll()
+    .catch(e => {throw new HttpException("Could not delete all the films: " + e.message , HttpStatus.CONFLICT)})
   }
 }

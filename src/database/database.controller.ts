@@ -1,5 +1,5 @@
 import { Controller, Post, UseGuards } from '@nestjs/common';
-import { DatabaseService } from './database-preload.service';
+import { DatabaseService } from './database.service';
 import { Roles } from 'src/modules/auth/decorators/roles.decorator';
 import { Roles as RolesEnum } from 'src/modules/user/entities/user.entity';
 import { AuthGuard } from 'src/modules/auth/auth.guard';

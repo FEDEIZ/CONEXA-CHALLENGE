@@ -10,7 +10,6 @@ import {Roles as RolesEnum} from './../user/entities/user.entity'
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // @HttpCode(HttpStatus.OK)
   @Post('signIn')
   signIn(
     @Body() signInDto : SignInDto,
@@ -25,10 +24,4 @@ export class AuthController {
     return this.authService.signUp(signUpDto);
   }
 
-  @UseGuards(AuthGuard)
-  @Roles(RolesEnum.admin, RolesEnum.user)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
 }
