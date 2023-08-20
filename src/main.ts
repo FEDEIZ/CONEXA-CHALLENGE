@@ -12,7 +12,7 @@ async function bootstrap() {
     whitelist: true,
     forbidNonWhitelisted: true,
   }));
-  app.use(morgan('dev'));
+  app.use(morgan('combined'));
   await app.listen(3000);
   console.log("Nest app listening on port 3000")
 }
