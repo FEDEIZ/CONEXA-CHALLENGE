@@ -1,4 +1,4 @@
-import { Inject, Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException, ConflictException, NotFoundException } from '@nestjs/common';
 import { SignInDto } from './dto/signIn-auth.dto';
 import { SignUpDto } from './dto/signUp-auth.dto';
 import { UserService } from '../user/user.service';
@@ -33,8 +33,10 @@ export class AuthService {
   }
 
   async signIn(signInDto: SignInDto) {
-    const user = await this.userService.findOneByEmail(signInDto.email);
-    if (!processPassword.compare(signInDto.password,user.password)) {
+    const user = await this.userService.findOneByEmail(signInDto.email)
+    if(!user) throw new NotFoundException
+    const logged = await processPassword.compare(signInDto.password, user.password);
+    if (!logged) {
       throw new UnauthorizedException();
     }
     const payload = { sub: user._id, username: user.userName, role: user.role };
