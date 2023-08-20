@@ -276,3 +276,9 @@ Respuesta en caso de éxito:
   "__v": 0
 }
 ```
+
+PARA RESETEAR LA BASE DE DATOS DE PELICULA CON LA API DE STARWARS:
+
+## POST `http://localhost:3000/database/reset`
+
+\*\* Debe ser usuario administrador!
