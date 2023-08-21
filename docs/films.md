@@ -10,7 +10,7 @@ email: `admin@conexa.com`
 
 password: `conexA12345!`
 
-## GET `http://localhost:3000/film`
+## GET `http://localhost:8000/film`
 
 Endpoint encargado de buscar todas las peliculas
 
@@ -96,7 +96,7 @@ Algunas respuestas de error:
 
 ---
 
-## POST `http://localhost:3000/film`
+## POST `http://localhost:8000/film`
 
 Endpoint encargado de crear una pelicula
 Rol autorizado: administrador -- USAR USUARIO ADMIN
@@ -131,7 +131,7 @@ Rol autorizado: administrador -- USAR USUARIO ADMIN
 }
 ```
 
-## PATCH `http://localhost:3000/film/{{filmId}}`
+## PATCH `http://localhost:8000/film/{{filmId}}`
 
 Endpoint encargado de modificar una pelicula
 Rol autorizado: administrador -- USAR USUARIO ADMIN
@@ -177,7 +177,7 @@ Respuesta en caso contrario:
 }
 ```
 
-## DELETE `http://localhost:3000/film/{{filmId}}`
+## DELETE `http://localhost:8000/film/{{filmId}}`
 
 Endpoint encargado de eliminar una pelicula
 Rol autorizado: administrador -- USAR USUARIO ADMIN
@@ -199,7 +199,7 @@ Respuesta en caso contrario:
 }
 ```
 
-## GET `http://localhost:3000/film/{{filmId}}`
+## GET `http://localhost:8000/film/{{filmId}}`
 
 Endpoint encargado de leer el detalle de una pelicula
 Rol autorizado: USER -- Usar cualquier usuario que no sea el de ADMIN como por ejemplo:
@@ -279,6 +279,6 @@ Respuesta en caso de éxito:
 
 PARA RESETEAR LA BASE DE DATOS DE PELICULA CON LA API DE STARWARS:
 
-## POST `http://localhost:3000/database/reset`
+## POST `http://localhost:8000/database/reset`
 
 \*\* Debe ser usuario administrador!

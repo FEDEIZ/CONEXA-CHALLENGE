@@ -32,3 +32,5 @@ Para probar los endpoints correspondientes al challenge usar los doucmentos del 
 
 - [Autenticacion y Registro](./docs/auth.md)
 - [Films](./docs/films.md)
+
+\*\* Se puede usar tambien la documentacion generada por swagger mediante la ruta `localhost:8000/api`

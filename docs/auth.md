@@ -7,7 +7,7 @@ Usuario administrador previamente cargado en la base de datos:
 email: admin@conexa.com
 password: conexA12345!
 
-## POST `http://localhost:3000/auth/signUp`
+## POST `http://localhost:8000/auth/signUp`
 
 Endpoint encargado de registrar un nuevo usuario
 
@@ -65,7 +65,7 @@ Algunas respuestas de error:
 }
 ```
 
-## POST `http://localhost:3000/auth/signIn`
+## POST `http://localhost:8000/auth/signIn`
 
 Endpoint encargado de loguear un usuario
 
