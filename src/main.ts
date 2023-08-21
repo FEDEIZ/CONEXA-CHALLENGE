@@ -2,17 +2,19 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as morgan from 'morgan'
-
+import * as cors from 'cors'; 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['debug', 'log'],
   });
+  app.use(cors());
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     forbidNonWhitelisted: true,
   }));
   app.use(morgan('combined'));
+  
   await app.listen(process.env.PORT);
   console.log("Nest app listening on port " + process.env.PORT || 8000)
 }
