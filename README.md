@@ -8,6 +8,7 @@ JWT_SECRET=fede1993
 SALT=10
 MONGO_URI=mongodb+srv://admin:admin@fedeiz.xummah6.mongodb.net/conexa
 STARWARS_API=http://swapi.dev/api
+PORT=8000
 
 ---
 
