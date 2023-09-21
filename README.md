@@ -16,9 +16,16 @@ PORT=8000
 
 Deploy de api
 
+https://conexa.up.railway.app
+
 ---
 
 Para levantar el servidor en modo desarrollo correr:
+
+```
+npm i
+```
+** Crear archivo .env con las variables de entorno descriptas
 
 ```
 npm run dev
